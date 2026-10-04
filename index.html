@@ -3,103 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karnataka Tourism - One State, Many Worlds</title>
+    <title>Karnataka Tourism Directory</title>
     <style>
         :root {
             --primary: #c2410c;
             --primary-dark: #9a3412;
             --primary-light: #fff7ed;
-            --accent: #ca8a04;
             --dark: #1f2937;
             --gray: #6b7280;
             --light-bg: #f9fafb;
             --white: #ffffff;
-            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             --radius: 12px;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--light-bg); color: var(--dark); line-height: 1.6; }
 
-        body {
-            background-color: var(--light-bg);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-
-        /* Header & Navbar */
         header {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             color: var(--white);
             padding: 1rem 2rem;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: var(--shadow);
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .logo-map {
-            width: 32px;
-            height: 32px;
-            fill: #fde047;
-        }
-
-        /* Hero Banner */
         .hero {
             background: linear-gradient(rgba(154, 52, 18, 0.85), rgba(194, 65, 12, 0.85)), url('https://images.unsplash.com/photo-1600100397608-f09070624022?auto=format&fit=crop&w=1200&q=80') center/cover;
             color: var(--white);
             text-align: center;
-            padding: 4rem 1.5rem 3rem;
+            padding: 3rem 1.5rem;
         }
 
-        .hero h1 {
-            font-size: 2.75rem;
-            margin-bottom: 0.75rem;
-            font-weight: 800;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            opacity: 0.95;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-        }
-
-        /* Search Controls */
         .search-box {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
+            max-width: 500px;
+            margin: 1rem auto 0;
             background: var(--white);
             border-radius: 50px;
             padding: 4px;
-            box-shadow: var(--shadow-lg);
         }
 
         .search-box input {
-            flex: 1;
+            width: 100%;
             border: none;
             padding: 0.8rem 1.5rem;
             font-size: 1rem;
@@ -107,494 +53,136 @@
             outline: none;
         }
 
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-        }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1.5rem; }
 
-        /* Category & Region Filters */
-        .filter-section {
-            margin-bottom: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .filter-label {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--gray);
-            min-width: 80px;
-        }
+        .filter-group { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
 
         .filter-btn {
             background: var(--white);
             border: 1px solid #e5e7eb;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.9rem;
             border-radius: 20px;
-            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
-        }
+        .filter-btn.active { background: var(--primary); color: var(--white); }
 
-        /* District Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
 
         .card {
             background: var(--white);
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .card-img {
-            height: 200px;
-            width: 100%;
-            object-fit: cover;
-            background-color: #e5e7eb;
-        }
-
-        .card-body {
-            padding: 1.25rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .card-tag {
-            display: inline-block;
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
-            margin-bottom: 0.5rem;
-            width: fit-content;
-            text-transform: uppercase;
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .card-subtitle {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .card-desc {
-            font-size: 0.95rem;
-            color: #4b5563;
-            margin-bottom: 1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
+        .card-img { height: 180px; width: 100%; object-fit: cover; }
+        .card-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+        .card-title { font-size: 1.2rem; font-weight: 700; }
+        .card-desc { font-size: 0.9rem; color: var(--gray); margin: 0.5rem 0 1rem; flex: 1; }
 
         .card-btn {
-            margin-top: auto;
             background: var(--primary);
             color: var(--white);
             border: none;
-            padding: 0.75rem;
+            padding: 0.6rem;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            width: 100%;
-            text-align: center;
-            transition: background 0.2s;
         }
 
-        .card-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Modal Details View */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.6);
             z-index: 1000;
-            overflow-y: auto;
             padding: 1.5rem;
         }
 
         .modal-content {
             background: var(--white);
-            max-width: 800px;
+            max-width: 700px;
             margin: 2rem auto;
             border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            position: relative;
+            padding: 1.5rem;
+            max-height: 85vh;
+            overflow-y: auto;
         }
 
-        .modal-header {
-            position: relative;
-            height: 300px;
-        }
-
-        .modal-header img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-body {
-            padding: 2rem;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            background: var(--primary-light);
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-        }
-
-        .info-item strong {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--primary-dark);
-            text-transform: uppercase;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin: 1.5rem 0 0.5rem;
-            color: var(--dark);
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 0.25rem;
-        }
-
-        .map-btn {
-            display: inline-block;
-            background: #15803d;
-            color: white;
-            text-decoration: none;
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-top: 1.5rem;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-        }
-
-        @media (max-width: 640px) {
-            .hero h1 { font-size: 2rem; }
-            .grid { grid-template-columns: 1fr; }
-        }
+        .close-btn { float: right; font-size: 1.5rem; border: none; background: none; cursor: pointer; }
     </style>
+    <!-- Load content dataset file -->
+    <script src="data.js"></script>
 </head>
 <body>
 
     <header>
-        <div class="nav-container">
-            <div class="logo">
-                <svg class="logo-map" viewBox="0 0 100 100">
-                    <path d="M 30,10 L 70,15 L 85,45 L 65,85 L 35,90 L 15,50 Z"/>
-                </svg>
-                Explore Karnataka
-            </div>
-        </div>
+        <h2>🚩 Explore Karnataka Tourism</h2>
     </header>
 
     <div class="hero">
-        <h1>One State. Many Worlds.</h1>
-        <p>Explore heritage monuments, misty hill stations, pristine coastal beaches, and dense wildlife sanctuaries across Karnataka's 31 districts.</p>
+        <h1>Karnataka Districts Directory</h1>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search by district or tourist spot (e.g. Hampi, Coorg)..." oninput="filterDestinations()">
+            <input type="text" id="searchInput" placeholder="Search by district or spot..." oninput="renderCards()">
         </div>
     </div>
 
     <div class="container">
-        <div class="filter-section">
-            <div class="filter-group">
-                <span class="filter-label">Region:</span>
-                <button class="filter-btn active" onclick="setRegion('all', this)">All</button>
-                <button class="filter-btn" onclick="setRegion('Coastal', this)">Coastal</button>
-                <button class="filter-btn" onclick="setRegion('Malnad', this)">Malnad / Ghats</button>
-                <button class="filter-btn" onclick="setRegion('South Interior', this)">South Interior</button>
-                <button class="filter-btn" onclick="setRegion('North Interior', this)">North Interior</button>
-            </div>
-            <div class="filter-group">
-                <span class="filter-label">Category:</span>
-                <button class="filter-btn active" onclick="setCategory('all', this)">All</button>
-                <button class="filter-btn" onclick="setCategory('Heritage', this)">Heritage</button>
-                <button class="filter-btn" onclick="setCategory('Nature', this)">Nature & Hills</button>
-                <button class="filter-btn" onclick="setCategory('Beach', this)">Beaches</button>
-                <button class="filter-btn" onclick="setCategory('Wildlife', this)">Wildlife</button>
-            </div>
+        <div class="filter-group">
+            <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+            <button class="filter-btn" onclick="setFilter('Heritage', this)">Heritage</button>
+            <button class="filter-btn" onclick="setFilter('Nature', this)">Nature</button>
+            <button class="filter-btn" onclick="setFilter('Beach', this)">Beach</button>
         </div>
 
         <div class="grid" id="districtGrid"></div>
     </div>
 
-    <!-- Details Modal -->
     <div class="modal" id="detailsModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <img id="modalImg" src="" alt="Spot Image">
-                <button class="close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <span class="card-tag" id="modalCategory"></span>
-                <h2 id="modalTitle" style="font-size: 1.8rem;"></h2>
-                <p id="modalSubtitle" style="color: var(--gray); font-weight: 600;"></p>
-                
-                <div class="info-grid">
-                    <div class="info-item">
-                        <strong>Best Time to Visit</strong>
-                        <span id="modalSeason"></span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Timings</strong>
-                        <span id="modalTimings"></span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Entry Fee</strong>
-                        <span id="modalFee"></span>
-                    </div>
-                </div>
-
-                <div class="section-title">Overview</div>
-                <p id="modalDesc"></p>
-
-                <div class="section-title">Top Attractions & Things To Do</div>
-                <ul id="modalAttractions" style="margin-left: 1.25rem;"></ul>
-
-                <div class="section-title">How To Reach</div>
-                <p id="modalReach"></p>
-
-                <div class="section-title">Must-Try Local Food</div>
-                <p id="modalFood"></p>
-
-                <a id="modalMapLink" href="#" target="_blank" class="map-btn">📍 Open in Google Maps</a>
-            </div>
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h2 id="modalTitle"></h2>
+            <p id="modalSubtitle" style="color: var(--gray);"></p>
+            <img id="modalImg" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin: 1rem 0;">
+            <p id="modalDesc"></p>
+            <p style="margin-top: 1rem;"><strong>Food:</strong> <span id="modalFood"></span></p>
+            <a id="modalMapLink" href="#" target="_blank" style="display: inline-block; margin-top: 1rem; color: var(--primary); font-weight: bold;">View on Google Maps</a>
         </div>
     </div>
 
-    <footer>
-        <p>© 2026 Karnataka Tourism Directory | Experience "One State, Many Worlds"</p>
-    </footer>
-
     <script>
-        const districts = [
-            {
-                id: "mysuru",
-                name: "Mysuru (Mysore)",
-                spot: "Mysore Palace & Chamundi Hill",
-                region: "South Interior",
-                category: "Heritage",
-                image: "https://images.unsplash.com/photo-1600100397608-f09070624022?auto=format&fit=crop&w=800&q=80",
-                shortDesc: "The cultural capital of Karnataka, famous for the opulent Mysore Palace, rich royal heritage, and Dasara celebrations.",
-                overview: "Mysuru is world-famous for its majestic royal architecture, silk sarees, and sandalwood products. The Mysore Palace is an architectural masterpiece blending Indo-Saracenic styles.",
-                season: "October to March",
-                timings: "10:00 AM - 5:30 PM (Illumination on Sundays 7 PM - 8 PM)",
-                fee: "₹100 (Indians), ₹300 (Foreigners)",
-                attractions: ["Grand Mysore Palace", "Chamundeshwari Temple", "Brindavan Gardens", "Mysore Zoo"],
-                reach: "Nearest Airport: Mysore Airport (MYQ) / Bengaluru Int'l (BLR 170 km). Direct trains available from Bengaluru.",
-                food: "Mysore Pak, Mysore Masala Dosa, Filter Coffee",
-                map: "https://maps.google.com/?q=Mysore+Palace"
-            },
-            {
-                id: "hampi",
-                name: "Vijayanagara",
-                spot: "Hampi Monument Group",
-                region: "North Interior",
-                category: "Heritage",
-                image: "https://images.unsplash.com/photo-1620766182966-c6eb5ed2b788?auto=format&fit=crop&w=800&q=80",
-                shortDesc: "A UNESCO World Heritage Site featuring ancient ruins of the Vijayanagara Empire amidst boulder-strewn landscapes.",
-                overview: "Hampi was the magnificent capital of the Vijayanagara Empire in the 14th century. Stretched across 4,100 hectares, it contains temples, royal complexes, and stone chariots.",
-                season: "November to February",
-                timings: "Sunrise to Sunset (Vittala Temple: 8:30 AM - 5:30 PM)",
-                fee: "₹40 (Indians), ₹600 (Foreigners)",
-                attractions: ["Stone Chariot at Vittala Temple", "Virupaksha Temple", "Lotus Mahal", "Matanga Hill Sunset Point"],
-                reach: "Nearest Railway Station: Hospet Junction (13 km). Nearest Airport: Jindal Vijaynagar (35 km).",
-                food: "South Indian Thali, Banana Leaf Meals, Fresh Coconut Water",
-                map: "https://maps.google.com/?q=Hampi+Karnataka"
-            },
-            {
-                id: "coorg",
-                name: "Kodagu (Coorg)",
-                spot: "Abbey Falls & Raja's Seat",
-                region: "Malnad",
-                category: "Nature",
-                image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=800&q=80",
-                shortDesc: "Known as the Scotland of India, famous for coffee plantations, misty hills, lush greenery, and rich Kodava culture.",
-                overview: "Kodagu is a tranquil hill destination on the Western Ghats. It offers lush coffee estates, aromatic spice plantations, trekking trails, and breathtaking waterfalls.",
-                season: "September to June",
-                timings: "9:00 AM - 5:00 PM for waterfalls",
-                fee: "₹15 - ₹50 per attraction",
-                attractions: ["Abbey Falls", "Raja's Seat Sunset Viewpoint", "Dubare Elephant Camp", "Tadiandamol Peak Trek"],
-                reach: "Nearest Airport: Kannur (90 km) / Mangalore (140 km). Nearest Railway Station: Mysuru (120 km).",
-                food: "Pandi Curry (Pork Curry), Akki Oti (Rice Roti), Kadambuttu",
-                map: "https://maps.google.com/?q=Madikeri+Coorg"
-            },
-            {
-                id: "gokarna",
-                name: "Uttara Kannada",
-                spot: "Gokarna Om Beach & Murudeshwar",
-                region: "Coastal",
-                category: "Beach",
-                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
-                shortDesc: "Serene beach town blending spiritual pilgrimage with pristine coastal beach treks and water sports.",
-                overview: "Gokarna is home to the ancient Mahabaleshwar Temple and iconic beaches like Om Beach, Kudle Beach, and Half Moon Beach connected by scenic cliff walking trails.",
-                season: "October to March",
-                timings: "Beaches open 24/7; Temple: 6 AM - 12:30 PM & 5 PM - 8 PM",
-                fee: "Free Entry",
-                attractions: ["Om Beach", "Kudle Beach Trek", "Mahabaleshwar Shiva Temple", "Murudeshwar Shiva Statue"],
-                reach: "Nearest Railway Station: Gokarna Road / Ankola. Nearest Airport: Goa Dabolim (140 km).",
-                food: "Seafood Thali, Prawn Curry, Banana Pancakes",
-                map: "https://maps.google.com/?q=Om+Beach+Gokarna"
-            },
-            {
-                id: "chikkamagaluru",
-                name: "Chikkamagaluru",
-                spot: "Mullayanagiri & Baba Budangiri",
-                region: "Malnad",
-                category: "Nature",
-                image: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=800&q=80",
-                shortDesc: "The birthplace of coffee in India, offering peak trekking, coffee estate stays, and cool mountain air.",
-                overview: "Chikkamagaluru sits at the foothills of the Mullayanagiri range—the highest peak in Karnataka. Ideal for trekking, coffee lovers, and nature enthusiasts.",
-                season: "September to March",
-                timings: "Open all day (Jeep tours: 6:00 AM - 5:00 PM)",
-                fee: "Free (Jeep ride fees apply for peaks)",
-                attractions: ["Mullayanagiri Peak", "Baba Budangiri", "Hebbe Falls", "Coffee Plantation Tours"],
-                reach: "Nearest Airport: Mangalore (150 km). Well connected by road from Bengaluru (240 km).",
-                food: "Malanadu Meals, Jackfruit Chips, Fresh Filter Coffee",
-                map: "https://maps.google.com/?q=Mullayanagiri+Karnataka"
-            },
-            {
-                id: "bandipur",
-                name: "Chamarajanagar",
-                spot: "Bandipur Tiger Reserve",
-                region: "South Interior",
-                category: "Wildlife",
-                image: "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=800&q=80",
-                shortDesc: "Famous tiger reserve and elephant habitat nestled in the Nilgiri Biosphere Reserve.",
-                overview: "Bandipur National Park is one of India's premier tiger reserves, home to Bengal tigers, Indian elephants, leopards, and gaurs.",
-                season: "October to May",
-                timings: "Safaris: 6:00 AM - 9:00 AM & 3:00 PM - 6:00 PM",
-                fee: "₹350 - ₹1500 (Depending on Bus/Jeep Safari)",
-                attractions: ["Jungle Bus Safari", "Jeep Wildlife Trek", "Gopalaswamy Betta Peak"],
-                reach: "Nearest Airport: Mysore Airport (70 km). Located on Mysuru-Ooty highway.",
-                food: "South Indian meals available at forest lodge restaurants",
-                map: "https://maps.google.com/?q=Bandipur+National+Park"
-            }
-        ];
-
-        let selectedRegion = 'all';
-        let selectedCategory = 'all';
+        let activeCategory = 'all';
 
         function renderCards() {
             const grid = document.getElementById('districtGrid');
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const query = document.getElementById('searchInput').value.toLowerCase();
 
-            const filtered = districts.filter(item => {
-                const matchesRegion = selectedRegion === 'all' || item.region === selectedRegion;
-                const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
-                const matchesSearch = item.name.toLowerCase().includes(searchQuery) || item.spot.toLowerCase().includes(searchQuery);
-                return matchesRegion && matchesCategory && matchesSearch;
+            const filtered = districts.filter(d => {
+                const matchesCat = activeCategory === 'all' || d.category === activeCategory;
+                const matchesSearch = d.name.toLowerCase().includes(query) || d.spot.toLowerCase().includes(query);
+                return matchesCat && matchesSearch;
             });
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--gray); font-size: 1.1rem; padding: 2rem;">No tourist spots found matching your search.</p>`;
-                return;
-            }
 
             grid.innerHTML = filtered.map(item => `
                 <div class="card">
                     <img src="${item.image}" alt="${item.spot}" class="card-img">
                     <div class="card-body">
-                        <span class="card-tag">${item.category} • ${item.region}</span>
                         <div class="card-title">${item.spot}</div>
-                        <div class="card-subtitle">📍 ${item.name} District</div>
+                        <div style="font-size: 0.85rem; color: var(--gray);">${item.name} District</div>
                         <p class="card-desc">${item.shortDesc}</p>
-                        <button class="card-btn" onclick="openModal('${item.id}')">Explore Details</button>
+                        <button class="card-btn" onclick="openModal('${item.id}')">Explore</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        function setRegion(region, btn) {
-            selectedRegion = region;
-            btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        function setFilter(category, btn) {
+            activeCategory = category;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            renderCards();
-        }
-
-        function setCategory(category, btn) {
-            selectedCategory = category;
-            btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderCards();
-        }
-
-        function filterDestinations() {
             renderCards();
         }
 
@@ -602,37 +190,18 @@
             const item = districts.find(d => d.id === id);
             if (!item) return;
 
-            document.getElementById('modalImg').src = item.image;
-            document.getElementById('modalCategory').textContent = `${item.category} • ${item.region} Region`;
             document.getElementById('modalTitle').textContent = item.spot;
-            document.getElementById('modalSubtitle').textContent = `District: ${item.name}`;
-            document.getElementById('modalSeason').textContent = item.season;
-            document.getElementById('modalTimings').textContent = item.timings;
-            document.getElementById('modalFee').textContent = item.fee;
+            document.getElementById('modalSubtitle').textContent = `${item.name} District • ${item.category}`;
+            document.getElementById('modalImg').src = item.image;
             document.getElementById('modalDesc').textContent = item.overview;
-            document.getElementById('modalReach').textContent = item.reach;
             document.getElementById('modalFood').textContent = item.food;
             document.getElementById('modalMapLink').href = item.map;
-
-            const attractionsList = document.getElementById('modalAttractions');
-            attractionsList.innerHTML = item.attractions.map(attr => `<li>${attr}</li>`).join('');
 
             document.getElementById('detailsModal').style.display = 'block';
         }
 
-        function closeModal() {
-            document.getElementById('detailsModal').style.display = 'none';
-        }
+        function closeModal() { document.getElementById('detailsModal').style.display = 'none'; }
 
-        // Close modal on background click
-        window.onclick = function(event) {
-            const modal = document.getElementById('detailsModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
-
-        // Initial render
         renderCards();
     </script>
 </body>
