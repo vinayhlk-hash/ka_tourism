@@ -1,851 +1,639 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore Karnataka - One State. Many Worlds.</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        ka: {
-                            yellow: '#FFCC00',
-                            red: '#DC2626',
-                            gold: '#D97706',
-                            dark: '#0F172A',
-                            forest: '#064E3B',
-                            sand: '#FEF3C7'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                        serif: ['Cinzel', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Karnataka Tourism - One State, Many Worlds</title>
     <style>
-        .gradient-ka {
-            background: linear-gradient(135deg, #DC2626 0%, #D97706 50%, #FFCC00 100%);
+        :root {
+            --primary: #c2410c;
+            --primary-dark: #9a3412;
+            --primary-light: #fff7ed;
+            --accent: #ca8a04;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-bg: #f9fafb;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --radius: 12px;
         }
-        .hero-overlay {
-            background: linear-gradient(180deg, rgba(15,23,42,0.4) 0%, rgba(15,23,42,0.95) 100%);
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark);
+            line-height: 1.6;
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.1);
+
+        /* Header & Navbar */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #D97706;
-            border-radius: 3px;
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-map {
+            width: 32px;
+            height: 32px;
+            fill: #fde047;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(rgba(154, 52, 18, 0.85), rgba(194, 65, 12, 0.85)), url('https://images.unsplash.com/photo-1600100397608-f09070624022?auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            margin-bottom: 0.75rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Search Controls */
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            background: var(--white);
+            border-radius: 50px;
+            padding: 4px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 50px;
+            outline: none;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Category & Region Filters */
+        .filter-section {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--gray);
+            min-width: 80px;
+        }
+
+        .filter-btn {
+            background: var(--white);
+            border: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* District Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            background-color: #e5e7eb;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-tag {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            width: fit-content;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: #4b5563;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-btn {
+            margin-top: auto;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: background 0.2s;
+        }
+
+        .card-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Modal Details View */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .modal-content {
+            background: var(--white);
+            max-width: 800px;
+            margin: 2rem auto;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .modal-header {
+            position: relative;
+            height: 300px;
+        }
+
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            background: var(--primary-light);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .info-item strong {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1.5rem 0 0.5rem;
+            color: var(--dark);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.25rem;
+        }
+
+        .map-btn {
+            display: inline-block;
+            background: #15803d;
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-500 selection:text-black">
+<body>
 
-    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 transition-all">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-            <!-- Branding Logo with SVG Karnataka Map -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-red-600 via-amber-500 to-yellow-400 p-0.5 shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform">
-                    <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center p-1">
-                        <svg viewBox="0 0 300 320" class="w-full h-full stroke-amber-400 fill-red-600/30">
-                            <path d="M 155 25 C 172 20 188 32 195 48 C 202 62 218 66 228 80 C 238 94 224 110 232 126 C 242 142 248 162 242 182 C 236 202 218 222 220 242 C 222 262 202 280 188 296 C 172 312 155 330 138 330 C 128 330 118 310 108 288 C 98 266 88 246 80 220 C 72 194 65 170 68 145 C 72 120 86 98 102 82 C 118 66 138 30 155 25 Z" stroke-width="12" />
-                        </svg>
-                    </div>
-                </div>
-                <div>
-                    <span class="font-serif text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-amber-400 to-red-500 block leading-tight">
-                        EXPLORE KARNATAKA
-                    </span>
-                    <span class="text-[10px] sm:text-xs text-amber-200/70 tracking-widest uppercase font-medium">One State. Many Worlds.</span>
-                </div>
-            </a>
-
-            <!-- Search Bar -->
-            <div class="hidden md:flex flex-1 max-w-md mx-6 relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                <input type="text" id="searchInput" oninput="filterDestinations()" placeholder="Search Mysuru, Hampi, Coorg, Beaches..." 
-                    class="w-full bg-slate-800/80 border border-slate-700/80 rounded-full pl-11 pr-4 py-2 text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition">
-            </div>
-
-            <!-- Wishlist & Links -->
-            <div class="flex items-center gap-3">
-                <button onclick="toggleSavedModal()" class="relative p-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 transition flex items-center gap-2 px-4 text-sm font-semibold">
-                    <i class="fa-solid fa-heart text-red-500"></i>
-                    <span class="hidden sm:inline">Saved</span>
-                    <span id="savedCountBadge" class="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full font-bold">0</span>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Mobile Search Bar -->
-        <div class="px-4 pb-3 md:hidden">
-            <div class="relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                <input type="text" id="mobileSearchInput" oninput="syncMobileSearch()" placeholder="Search destinations, culture, heritage..." 
-                    class="w-full bg-slate-800 border border-slate-700 rounded-full pl-10 pr-4 py-2 text-xs text-slate-200 placeholder-slate-400 focus:outline-none focus:border-amber-400">
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <svg class="logo-map" viewBox="0 0 100 100">
+                    <path d="M 30,10 L 70,15 L 85,45 L 65,85 L 35,90 L 15,50 Z"/>
+                </svg>
+                Explore Karnataka
             </div>
         </div>
     </header>
 
-    <section class="relative min-h-[420px] lg:min-h-[500px] flex items-center justify-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1600100397608-f090742f4007?auto=format&fit=crop&w=1600&q=80" alt="Karnataka Heritage Hampi" class="absolute inset-0 w-full h-full object-cover object-center">
-        <div class="hero-overlay absolute inset-0"></div>
+    <div class="hero">
+        <h1>One State. Many Worlds.</h1>
+        <p>Explore heritage monuments, misty hill stations, pristine coastal beaches, and dense wildlife sanctuaries across Karnataka's 31 districts.</p>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search by district or tourist spot (e.g. Hampi, Coorg)..." oninput="filterDestinations()">
+        </div>
+    </div>
 
-        <div class="relative max-w-5xl mx-auto px-4 text-center z-10 py-12">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 font-semibold text-xs tracking-wider uppercase mb-4 backdrop-blur-md">
-                <i class="fa-solid fa-compass me-2"></i> Official Tourism Experience Guide
-            </span>
-            <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight drop-shadow-lg">
-                Discover the Royal Splendor & Wild Trails of <span class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-amber-500">Karnataka</span>
-            </h1>
-            <p class="text-sm sm:text-lg text-slate-200 max-w-2xl mx-auto mb-8 font-light leading-relaxed">
-                From ancient UNESCO World Heritage ruins in Hampi to mist-covered coffee hills of Coorg and pristine golden beaches in Gokarna.
-            </p>
-            <div class="flex flex-wrap justify-center gap-4 text-xs sm:text-sm">
-                <a href="#destinations" class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-red-600 hover:from-amber-400 hover:to-red-500 text-slate-950 font-bold shadow-lg shadow-amber-500/25 transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-map-location-dot"></i> Explore 10 Key Regions
-                </a>
-                <a href="#cuisine" class="px-6 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-100 border border-slate-700 font-semibold transition backdrop-blur flex items-center gap-2">
-                    <i class="fa-solid fa-utensils text-amber-400"></i> Culinary Specialties
-                </a>
+    <div class="container">
+        <div class="filter-section">
+            <div class="filter-group">
+                <span class="filter-label">Region:</span>
+                <button class="filter-btn active" onclick="setRegion('all', this)">All</button>
+                <button class="filter-btn" onclick="setRegion('Coastal', this)">Coastal</button>
+                <button class="filter-btn" onclick="setRegion('Malnad', this)">Malnad / Ghats</button>
+                <button class="filter-btn" onclick="setRegion('South Interior', this)">South Interior</button>
+                <button class="filter-btn" onclick="setRegion('North Interior', this)">North Interior</button>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Category:</span>
+                <button class="filter-btn active" onclick="setCategory('all', this)">All</button>
+                <button class="filter-btn" onclick="setCategory('Heritage', this)">Heritage</button>
+                <button class="filter-btn" onclick="setCategory('Nature', this)">Nature & Hills</button>
+                <button class="filter-btn" onclick="setCategory('Beach', this)">Beaches</button>
+                <button class="filter-btn" onclick="setCategory('Wildlife', this)">Wildlife</button>
             </div>
         </div>
-    </section>
 
-    <section id="destinations" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
-            
-            <!-- Region Filter Tabs -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800 custom-scrollbar">
-                <span class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5 shrink-0 me-2">
-                    <i class="fa-solid fa-earth-asia"></i> Region:
-                </span>
-                <button onclick="setRegionFilter('all')" class="region-btn px-4 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition bg-amber-500 text-slate-950" data-region="all">All Regions</button>
-                <button onclick="setRegionFilter('South Interior')" class="region-btn px-4 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition bg-slate-800 text-slate-300 hover:bg-slate-700" data-region="South Interior">South Interior (Mysuru, BLR)</button>
-                <button onclick="setRegionFilter('North Interior')" class="region-btn px-4 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition bg-slate-800 text-slate-300 hover:bg-slate-700" data-region="North Interior">North Interior (Hampi, Badami)</button>
-                <button onclick="setRegionFilter('Malnad')" class="region-btn px-4 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition bg-slate-800 text-slate-300 hover:bg-slate-700" data-region="Malnad">Malnad / Ghats (Coorg, Chikkamagaluru)</button>
-                <button onclick="setRegionFilter('Coastal')" class="region-btn px-4 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition bg-slate-800 text-slate-300 hover:bg-slate-700" data-region="Coastal">Coastal (Gokarna, Mangaluru)</button>
+        <div class="grid" id="districtGrid"></div>
+    </div>
+
+    <!-- Details Modal -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img id="modalImg" src="" alt="Spot Image">
+                <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
-
-            <!-- Category Filter Badges -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 shrink-0 me-2">
-                    <i class="fa-solid fa-tags"></i> Theme:
-                </span>
-                <button onclick="setCategoryFilter('all')" class="cat-btn px-3 py-1 rounded-full text-xs font-medium border border-amber-500/50 bg-amber-500/10 text-amber-300" data-cat="all">All Themes</button>
-                <button onclick="setCategoryFilter('Heritage')" class="cat-btn px-3 py-1 rounded-full text-xs font-medium border border-slate-700 text-slate-300 hover:border-amber-400" data-cat="Heritage">🏰 Heritage & Palaces</button>
-                <button onclick="setCategoryFilter('Nature')" class="cat-btn px-3 py-1 rounded-full text-xs font-medium border border-slate-700 text-slate-300 hover:border-amber-400" data-cat="Nature">🌿 Hills & Waterfalls</button>
-                <button onclick="setCategoryFilter('Wildlife')" class="cat-btn px-3 py-1 rounded-full text-xs font-medium border border-slate-700 text-slate-300 hover:border-amber-400" data-cat="Wildlife">🐅 Tiger Reserves</button>
-                <button onclick="setCategoryFilter('Beach')" class="cat-btn px-3 py-1 rounded-full text-xs font-medium border border-slate-700 text-slate-300 hover:border-amber-400" data-cat="Beach">🏖️ Coastal & Beaches</button>
-                <button onclick="setCategoryFilter('Adventure')" class="cat-btn px-3 py-1 rounded-full text-xs font-medium border border-slate-700 text-slate-300 hover:border-amber-400" data-cat="Adventure">⛰️ Trekking & Adventure</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex-1 w-full">
-        <div id="destinationsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <!-- Dynamic Injection of District Destination Cards -->
-        </div>
-
-        <div id="noResultsMsg" class="hidden text-center py-16 bg-slate-900/50 border border-slate-800 rounded-2xl">
-            <i class="fa-solid fa-compass-slash text-4xl text-amber-500 mb-3"></i>
-            <h3 class="text-xl font-bold text-slate-200">No destinations match your filter</h3>
-            <p class="text-sm text-slate-400 mt-1">Try switching categories or clearing search keywords.</p>
-            <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded-lg text-xs">Reset All Filters</button>
-        </div>
-    </section>
-
-    <section id="cuisine" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
-        <div class="border-t border-slate-800 pt-12">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-                <div>
-                    <span class="text-amber-400 font-semibold text-xs uppercase tracking-widest block mb-1">Authentic Flavors</span>
-                    <h2 class="font-serif text-2xl sm:text-4xl font-extrabold text-white">Karnataka Culinary Specialties</h2>
-                </div>
-                <p class="text-sm text-slate-400 max-w-md">
-                    From aromatic Mysore Pak and spicy Neer Dosa to traditional Bisi Bele Bath and Pandi Curry.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Food Item 1 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:border-amber-500/50 transition p-4 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-amber-400 text-base">Mysore Masala Dosa</h3>
-                            <span class="text-xs bg-red-950 text-red-300 px-2 py-0.5 rounded border border-red-800">South KA</span>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed">Crispy golden rice crepe smeared with spicy red garlic chutney and stuffed with seasoned potato masala, served with pure ghee.</p>
-                    </div>
-                    <span class="text-[11px] text-amber-200/60 mt-3 block border-t border-slate-800/80 pt-2"><i class="fa-solid fa-utensils me-1"></i> Best in: Mysuru, Bengaluru</span>
-                </div>
-
-                <!-- Food Item 2 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:border-amber-500/50 transition p-4 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-amber-400 text-base">Neer Dosa & Mangalorean Curry</h3>
-                            <span class="text-xs bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-800">Coastal</span>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed">Feather-light, lace-like rice crepes paired with rich coconut-infused coastal seafood curry or vegetable gassi.</p>
-                    </div>
-                    <span class="text-[11px] text-amber-200/60 mt-3 block border-t border-slate-800/80 pt-2"><i class="fa-solid fa-utensils me-1"></i> Best in: Mangaluru, Udupi, Gokarna</span>
-                </div>
-
-                <!-- Food Item 3 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:border-amber-500/50 transition p-4 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-amber-400 text-base">Coorg Pandi Curry & Kadambuttu</h3>
-                            <span class="text-xs bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-800">Malnad</span>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed">Iconic Kodava delicacy made with roasted dark spices and native wild garcinia (Kachampuli) vinegar, served with steamed rice dumplings.</p>
-                    </div>
-                    <span class="text-[11px] text-amber-200/60 mt-3 block border-t border-slate-800/80 pt-2"><i class="fa-solid fa-utensils me-1"></i> Best in: Kodagu (Coorg), Madikeri</span>
-                </div>
-
-                <!-- Food Item 4 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:border-amber-500/50 transition p-4 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-amber-400 text-base">Jolada Rotti & Ennegai</h3>
-                            <span class="text-xs bg-blue-950 text-blue-300 px-2 py-0.5 rounded border border-blue-800">North KA</span>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed">Unleavened sorghum flatbread served with stuffed spicy brinjal curry, peanut chutney powder, and fresh butter.</p>
-                    </div>
-                    <span class="text-[11px] text-amber-200/60 mt-3 block border-t border-slate-800/80 pt-2"><i class="fa-solid fa-utensils me-1"></i> Best in: Badami, Hampi, Hubballi</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="detailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="modalContainer">
-            
-            <!-- Modal Header -->
-            <div class="relative h-64 sm:h-72 w-full shrink-0">
-                <img id="modalImg" src="" alt="" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
-                <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-950/70 text-slate-200 hover:bg-red-600 hover:text-white flex items-center justify-center transition border border-slate-700">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-                <div class="absolute bottom-4 left-6 right-6">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span id="modalRegionBadge" class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs px-2.5 py-0.5 rounded-md font-semibold"></span>
-                        <span id="modalDistrictBadge" class="bg-slate-800/80 text-slate-300 border border-slate-700 text-xs px-2.5 py-0.5 rounded-md font-medium"></span>
-                    </div>
-                    <h2 id="modalTitle" class="font-serif text-2xl sm:text-4xl font-extrabold text-white"></h2>
-                </div>
-            </div>
-
-            <!-- Modal Content Scrollable -->
-            <div class="p-6 overflow-y-auto custom-scrollbar space-y-6 text-slate-300 text-sm flex-1">
+            <div class="modal-body">
+                <span class="card-tag" id="modalCategory"></span>
+                <h2 id="modalTitle" style="font-size: 1.8rem;"></h2>
+                <p id="modalSubtitle" style="color: var(--gray); font-weight: 600;"></p>
                 
-                <!-- Historical Overview -->
-                <div>
-                    <h3 class="font-serif text-base font-bold text-amber-400 mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-landmark"></i> Historical & Cultural Overview
-                    </h3>
-                    <p id="modalDesc" class="leading-relaxed text-slate-300"></p>
-                </div>
-
-                <!-- Logistics & Quick Facts Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-950/60 p-4 rounded-xl border border-slate-800">
-                    <div>
-                        <span class="text-xs text-slate-400 block font-semibold uppercase mb-1"><i class="fa-solid fa-clock text-amber-400 me-1"></i> Best Timings</span>
-                        <p id="modalTimings" class="font-medium text-slate-200 text-xs"></p>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Best Time to Visit</strong>
+                        <span id="modalSeason"></span>
                     </div>
-                    <div>
-                        <span class="text-xs text-slate-400 block font-semibold uppercase mb-1"><i class="fa-solid fa-ticket text-amber-400 me-1"></i> Entry Ticket Fee</span>
-                        <p id="modalFee" class="font-medium text-slate-200 text-xs"></p>
+                    <div class="info-item">
+                        <strong>Timings</strong>
+                        <span id="modalTimings"></span>
                     </div>
-                    <div>
-                        <span class="text-xs text-slate-400 block font-semibold uppercase mb-1"><i class="fa-solid fa-hourglass-half text-amber-400 me-1"></i> Recommended Duration</span>
-                        <p id="modalDuration" class="font-medium text-slate-200 text-xs"></p>
+                    <div class="info-item">
+                        <strong>Entry Fee</strong>
+                        <span id="modalFee"></span>
                     </div>
                 </div>
 
-                <!-- Reachability Grid -->
-                <div>
-                    <h3 class="font-serif text-base font-bold text-amber-400 mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-route"></i> How To Reach
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <div class="bg-slate-800/40 p-3 rounded-lg border border-slate-800">
-                            <span class="text-xs text-amber-300 font-semibold flex items-center gap-1.5 mb-1"><i class="fa-solid fa-plane"></i> Nearest Airport</span>
-                            <p id="modalAirport" class="text-xs text-slate-300"></p>
-                        </div>
-                        <div class="bg-slate-800/40 p-3 rounded-lg border border-slate-800">
-                            <span class="text-xs text-amber-300 font-semibold flex items-center gap-1.5 mb-1"><i class="fa-solid fa-train"></i> Railway Station</span>
-                            <p id="modalRailway" class="text-xs text-slate-300"></p>
-                        </div>
-                        <div class="bg-slate-800/40 p-3 rounded-lg border border-slate-800">
-                            <span class="text-xs text-amber-300 font-semibold flex items-center gap-1.5 mb-1"><i class="fa-solid fa-bus"></i> Bus Terminal</span>
-                            <p id="modalBus" class="text-xs text-slate-300"></p>
-                        </div>
-                    </div>
-                </div>
+                <div class="section-title">Overview</div>
+                <p id="modalDesc"></p>
 
-                <!-- Top Things To Do & Local Food -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <h3 class="font-serif text-base font-bold text-amber-400 mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-list-check"></i> Top Things To Do
-                        </h3>
-                        <ul id="modalActivities" class="list-disc list-inside space-y-1.5 text-xs text-slate-300"></ul>
-                    </div>
-                    <div>
-                        <h3 class="font-serif text-base font-bold text-amber-400 mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-bowl-food"></i> Must-Try Local Cuisine
-                        </h3>
-                        <p id="modalCuisine" class="text-xs text-slate-300 leading-relaxed"></p>
-                    </div>
-                </div>
+                <div class="section-title">Top Attractions & Things To Do</div>
+                <ul id="modalAttractions" style="margin-left: 1.25rem;"></ul>
 
-            </div>
+                <div class="section-title">How To Reach</div>
+                <p id="modalReach"></p>
 
-            <!-- Modal Footer -->
-            <div class="p-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between gap-4">
-                <button id="modalSaveBtn" onclick="" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 flex items-center gap-2 transition">
-                    <i class="fa-regular fa-heart text-red-500"></i> Save to Wishlist
-                </button>
-                <a id="modalMapBtn" href="#" target="_blank" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-red-600 hover:from-amber-400 hover:to-red-500 text-slate-950 font-bold text-xs shadow-lg transition flex items-center gap-2">
-                    <i class="fa-solid fa-location-arrow"></i> Open Google Maps Navigation
-                </a>
+                <div class="section-title">Must-Try Local Food</div>
+                <p id="modalFood"></p>
+
+                <a id="modalMapLink" href="#" target="_blank" class="map-btn">📍 Open in Google Maps</a>
             </div>
         </div>
     </div>
 
-    <div id="savedModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-2xl max-h-[80vh] rounded-2xl shadow-2xl p-6 flex flex-col">
-            <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-4">
-                <h3 class="font-serif text-xl font-bold text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-heart text-red-500"></i> My Saved Destinations
-                </h3>
-                <button onclick="toggleSavedModal()" class="text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-            <div id="savedList" class="flex-1 overflow-y-auto custom-scrollbar space-y-3">
-                <!-- Saved items rendered dynamically -->
-            </div>
-        </div>
-    </div>
-
-    <footer class="bg-slate-900 border-t border-slate-800 mt-16 py-12 text-xs text-slate-400">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="space-y-3">
-                <span class="font-serif text-lg font-bold text-amber-400 block">Karnataka Tourism</span>
-                <p class="leading-relaxed">Department of Tourism, Government of Karnataka. Promoting rich heritage, pristine ghats, and vibrant coastal culture.</p>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-200 mb-3 uppercase tracking-wider text-[11px]">Primary Destinations</h4>
-                <ul class="space-y-1.5">
-                    <li><a href="#" onclick="openDetail(1)" class="hover:text-amber-400">Mysuru Palace & Chamundi</a></li>
-                    <li><a href="#" onclick="openDetail(2)" class="hover:text-amber-400">Hampi UNESCO Heritage</a></li>
-                    <li><a href="#" onclick="openDetail(3)" class="hover:text-amber-400">Coorg Coffee Hills</a></li>
-                    <li><a href="#" onclick="openDetail(4)" class="hover:text-amber-400">Gokarna Om Beach</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-200 mb-3 uppercase tracking-wider text-[11px]">Emergency Contacts</h4>
-                <p class="mb-1">Karnataka Tourism Helpline: <span class="text-amber-400 font-bold">1800-425-2424</span></p>
-                <p class="mb-1">Police Assistance: <span class="text-amber-400 font-bold">112</span></p>
-                <p>Medical Emergency: <span class="text-amber-400 font-bold">108</span></p>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-200 mb-3 uppercase tracking-wider text-[11px]">State Slogan</h4>
-                <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 text-center">
-                    <span class="font-serif text-sm font-bold text-yellow-400 block mb-1">"One State. Many Worlds."</span>
-                    <span class="text-[10px] text-slate-500">ಒಂದು ರಾಜ್ಯ. ಹಲವು ಜಗತ್ತು.</span>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 mt-8 border-t border-slate-800/80 text-center text-slate-500">
-            &copy; 2026 Karnataka Tourism Interactive Guide &bull; Built with Tailwind CSS & JavaScript
-        </div>
+    <footer>
+        <p>© 2026 Karnataka Tourism Directory | Experience "One State, Many Worlds"</p>
     </footer>
 
     <script>
-        // 10 Key District Tourist Spot Data Objects
-        const destinationsData = [
+        const districts = [
             {
-                id: 1,
+                id: "mysuru",
                 name: "Mysuru (Mysore)",
-                district: "Mysuru District",
+                spot: "Mysore Palace & Chamundi Hill",
                 region: "South Interior",
                 category: "Heritage",
-                tagline: "The City of Palaces & Royal Heritage",
-                image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80",
-                overview: "Mysuru is world-famous for its majestic Amba Vilas Palace, silk sarees, sandalwood, and the grandeur of the Mysore Dasara festival. Ruled for centuries by the Wadiyar dynasty, it blends grand royal architecture with serene gardens.",
-                timings: "Palace: 10:00 AM - 5:30 PM | Illumination: Sun & Holidays 7 PM",
-                fee: "₹100 (Indians) | ₹1000 (Foreigners)",
-                duration: "2 - 3 Days",
-                airport: "Mysore Airport (MYQ) / Bengaluru Int'l (BLR - 170 km)",
-                railway: "Mysuru Junction (MYS) - Direct superfast connectivity",
-                bus: "KSRTC Central Bus Stand (Suburban Station)",
-                activities: [
-                    "Explore Amba Vilas Palace architectural corridors",
-                    "Climb 1,000 steps to Chamundeshwari Temple",
-                    "Stroll around Brindavan Gardens musical fountain",
-                    "Shop authentic Mysore Silk & Sandalwood handicrafts"
-                ],
-                cuisine: "Mysore Masala Dosa with red garlic chutney, Mysore Pak sweet, and traditional filter coffee.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Mysore+Palace+Karnataka"
+                image: "https://images.unsplash.com/photo-1600100397608-f09070624022?auto=format&fit=crop&w=800&q=80",
+                shortDesc: "The cultural capital of Karnataka, famous for the opulent Mysore Palace, rich royal heritage, and Dasara celebrations.",
+                overview: "Mysuru is world-famous for its majestic royal architecture, silk sarees, and sandalwood products. The Mysore Palace is an architectural masterpiece blending Indo-Saracenic styles.",
+                season: "October to March",
+                timings: "10:00 AM - 5:30 PM (Illumination on Sundays 7 PM - 8 PM)",
+                fee: "₹100 (Indians), ₹300 (Foreigners)",
+                attractions: ["Grand Mysore Palace", "Chamundeshwari Temple", "Brindavan Gardens", "Mysore Zoo"],
+                reach: "Nearest Airport: Mysore Airport (MYQ) / Bengaluru Int'l (BLR 170 km). Direct trains available from Bengaluru.",
+                food: "Mysore Pak, Mysore Masala Dosa, Filter Coffee",
+                map: "https://maps.google.com/?q=Mysore+Palace"
             },
             {
-                id: 2,
-                name: "Vijayanagara (Hampi)",
-                district: "Vijayanagara District",
+                id: "hampi",
+                name: "Vijayanagara",
+                spot: "Hampi Monument Group",
                 region: "North Interior",
                 category: "Heritage",
-                tagline: "UNESCO World Heritage Ancient Ruins",
-                image: "https://images.unsplash.com/photo-1600100397608-f090742f4007?auto=format&fit=crop&w=800&q=80",
-                overview: "The seat of the glorious 14th-century Vijayanagara Empire, Hampi features breathtaking boulder-strewn landscapes dotted with over 1,600 surviving temples, royal pavilions, stone chariots, and ancient bazaar streets.",
-                timings: "Monuments open sunrise to sunset (6:00 AM - 6:00 PM)",
-                fee: "₹40 (Vittala Temple & Zenana Enclosure) | Free for open ruins",
-                duration: "2 - 3 Days",
-                airport: "Jindal Vijayanagar Airport (VDY - 35 km) / Hubballi (160 km)",
-                railway: "Hosapete Junction (HPT - 13 km from Hampi)",
-                bus: "Hosapete Bus Stand with frequent auto/bus shuttle to Hampi",
-                activities: [
-                    "Marvel at the Stone Chariot in Vijaya Vittala Temple",
-                    "Watch sunset from Hemakuta Hill or Matanga Hill",
-                    "Coracle boat ride across the Tungabhadra River",
-                    "Explore Lotus Mahal and Elephant Stables"
-                ],
-                cuisine: "Traditional South Indian Thali served on banana leaf, Bisi Bele Bath, and fresh sugarcane juice.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hampi+Karnataka"
+                image: "https://images.unsplash.com/photo-1620766182966-c6eb5ed2b788?auto=format&fit=crop&w=800&q=80",
+                shortDesc: "A UNESCO World Heritage Site featuring ancient ruins of the Vijayanagara Empire amidst boulder-strewn landscapes.",
+                overview: "Hampi was the magnificent capital of the Vijayanagara Empire in the 14th century. Stretched across 4,100 hectares, it contains temples, royal complexes, and stone chariots.",
+                season: "November to February",
+                timings: "Sunrise to Sunset (Vittala Temple: 8:30 AM - 5:30 PM)",
+                fee: "₹40 (Indians), ₹600 (Foreigners)",
+                attractions: ["Stone Chariot at Vittala Temple", "Virupaksha Temple", "Lotus Mahal", "Matanga Hill Sunset Point"],
+                reach: "Nearest Railway Station: Hospet Junction (13 km). Nearest Airport: Jindal Vijaynagar (35 km).",
+                food: "South Indian Thali, Banana Leaf Meals, Fresh Coconut Water",
+                map: "https://maps.google.com/?q=Hampi+Karnataka"
             },
             {
-                id: 3,
+                id: "coorg",
                 name: "Kodagu (Coorg)",
-                district: "Kodagu District",
+                spot: "Abbey Falls & Raja's Seat",
                 region: "Malnad",
                 category: "Nature",
-                tagline: "Scotland of India & Coffee Country",
-                image: "https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?auto=format&fit=crop&w=800&q=80",
-                overview: "Nestled in the Western Ghats, Coorg is renowned for its lush coffee plantations, misty hills, cascading waterfalls, and the unique martial culture of the Kodava community.",
-                timings: "Abbey Falls: 9:00 AM - 5:00 PM | Raja's Seat: Sunset",
-                fee: "Abbey Falls: ₹15 | Raja's Seat: ₹10",
-                duration: "2 - 3 Days",
-                airport: "Kannur Int'l Airport (CNN - 90 km) / Mangaluru (140 km)",
-                railway: "Mysuru Junction (120 km) or Hassan (100 km)",
-                bus: "Madikeri KSRTC Bus Station",
-                activities: [
-                    "Walk through aromatic Arabica & Robusta coffee estates",
-                    "Visit Namdroling Monastery (Golden Temple) in Bylakuppe",
-                    "Trek to Tadiandamol Peak (highest in Coorg)",
-                    "Watch sunset from Raja's Seat overlooking misty valleys"
-                ],
-                cuisine: "Kodava Pandi Curry (pork curry with wild garcinia), Kadambuttu (steamed rice balls), and Bamboo Shoot curry.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Madikeri+Coorg+Karnataka"
-            },
-            {
-                id: 4,
-                name: "Gokarna (Uttara Kannada)",
-                district: "Uttara Kannada District",
-                region: "Coastal",
-                category: "Beach",
-                tagline: "Pristine Beaches & Sacred Temples",
-                image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80",
-                overview: "A tranquil coastal town offering a perfect mix of spiritual heritage at the ancient Mahabaleshwar Temple and bohemian beach vibes along Om Beach, Half Moon Beach, and Paradise Beach.",
-                timings: "Temple: 6 AM - 12:30 PM & 5 PM - 8 PM | Beaches open 24x7",
-                fee: "Free Entry to all public beaches",
-                duration: "2 Days",
-                airport: "Dabolim Goa Airport (GOI - 140 km) / Hubballi (150 km)",
-                railway: "Gokarna Road Railway Station (GOK - 10 km from town)",
-                bus: "Gokarna KSRTC Bus Stand",
-                activities: [
-                    "Hike the famous 5-Beach Trek (Kudle to Paradise Beach)",
-                    "Water sports & kayaking at Om Beach",
-                    "Pay homage at Atmalinga in Mahabaleshwar Temple",
-                    "Enjoy beachside café seafood and sunsets"
-                ],
-                cuisine: "Coastal Konkan seafood thali, Calamari, Clam Sukka, and refreshing Sol Kadhi.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Om+Beach+Gokarna+Karnataka"
-            },
-            {
-                id: 5,
-                name: "Chikkamagaluru",
-                district: "Chikkamagaluru District",
-                region: "Malnad",
-                category: "Adventure",
-                tagline: "The Birthplace of Indian Coffee",
                 image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=800&q=80",
-                overview: "Situated at the foothills of the Mullayanagiri range, Chikkamagaluru is famed for being the first place coffee was cultivated in India by Sufi saint Baba Budan in the 17th century.",
-                timings: "Mullayanagiri & Baba Budangiri open sunrise to 6 PM",
-                fee: "Free access (Jeep charges apply for steep peak drives)",
-                duration: "2 Days",
-                airport: "Mangaluru Int'l Airport (IXE - 150 km)",
-                railway: "Kadur Junction (DRU - 40 km) or Birur",
-                bus: "Chikkamagaluru Central KSRTC Bus Stand",
-                activities: [
-                    "Trek to Mullayanagiri Peak (highest point in Karnataka)",
-                    "Explore Hebbe Falls and Z Point in Kemmangundi",
-                    "Tour coffee processing mills and tasting sessions",
-                    "Visit Bhadra Wildlife Sanctuary safari"
-                ],
-                cuisine: "Malnad Akki Oti (rice flatbread), Jackfruit papad, and dark freshly brewed filter coffee.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Mullayanagiri+Chikkamagaluru+Karnataka"
+                shortDesc: "Known as the Scotland of India, famous for coffee plantations, misty hills, lush greenery, and rich Kodava culture.",
+                overview: "Kodagu is a tranquil hill destination on the Western Ghats. It offers lush coffee estates, aromatic spice plantations, trekking trails, and breathtaking waterfalls.",
+                season: "September to June",
+                timings: "9:00 AM - 5:00 PM for waterfalls",
+                fee: "₹15 - ₹50 per attraction",
+                attractions: ["Abbey Falls", "Raja's Seat Sunset Viewpoint", "Dubare Elephant Camp", "Tadiandamol Peak Trek"],
+                reach: "Nearest Airport: Kannur (90 km) / Mangalore (140 km). Nearest Railway Station: Mysuru (120 km).",
+                food: "Pandi Curry (Pork Curry), Akki Oti (Rice Roti), Kadambuttu",
+                map: "https://maps.google.com/?q=Madikeri+Coorg"
             },
             {
-                id: 6,
-                name: "Bengaluru (Bangalore Urban)",
-                district: "Bengaluru Urban",
-                region: "South Interior",
-                category: "Heritage",
-                tagline: "Silicon Valley & Garden City of India",
-                image: "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=800&q=80",
-                overview: "Karnataka's vibrant capital blends colonial-era green parks like Lalbagh and Cubbon Park with Tudor-style Bangalore Palace, tech hubs, microbreweries, and lively cultural venues.",
-                timings: "Lalbagh: 6 AM - 7 PM | Bangalore Palace: 10 AM - 5:30 PM",
-                fee: "Lalbagh: ₹30 | Palace: ₹250",
-                duration: "2 - 3 Days",
-                airport: "Kempegowda Int'l Airport (BLR - 35 km from city center)",
-                railway: "KSR Bengaluru City (SBC) / Yesvantpur (YPR)",
-                bus: "Kempegowda Bus Station (Majestic)",
-                activities: [
-                    "Stroll through the glasshouse at Lalbagh Botanical Garden",
-                    "Explore Bangalore Palace and Tipu Sultan's Summer Palace",
-                    "Experience craft beers in Indiranagar & Koramangala",
-                    "Visit ISKCON Temple and Vidhana Soudha"
-                ],
-                cuisine: "Crisp Benne Dosa at CTR, Filter Coffee at Vidyarthi Bhavan, and Mysore Pak.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Lalbagh+Botanical+Garden+Bengaluru"
-            },
-            {
-                id: 7,
-                name: "Shivamogga (Jog Falls)",
-                district: "Shivamogga District",
-                region: "Malnad",
-                category: "Nature",
-                tagline: "Gateway to the Western Ghats & Waterfalls",
-                image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80",
-                overview: "Home to the mighty Jog Falls—one of India's highest plunge waterfalls—Shivamogga is blessed with dense green forests, Sharavathi river backwaters, and elephant sanctuaries.",
-                timings: "Jog Falls viewpoint open 6:00 AM - 8:00 PM",
-                fee: "Entry: ₹15 per adult",
-                duration: "2 Days",
-                airport: "Shivamogga Airport (RQY) / Mangaluru (190 km)",
-                railway: "Shivamogga Town (SME) or Talguppa (near Jog Falls)",
-                bus: "Shivamogga KSRTC Terminal",
-                activities: [
-                    "Witness the 830-foot drop of Jog Falls (Raja, Roarer, Rocket, Rani)",
-                    "Boat safari at Sharavathi Backwaters",
-                    "Visit Sakrebyle Elephant Camp (morning bath sessions)",
-                    "Explore Keladi Nayaka Kingdom fort at Ikkeri"
-                ],
-                cuisine: "Midigayi (tender mango pickle), Todadevu (sweet crepe), and bamboo shoot curry.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Jog+Falls+Karnataka"
-            },
-            {
-                id: 8,
-                name: "Dakshina Kannada (Mangaluru)",
-                district: "Dakshina Kannada District",
+                id: "gokarna",
+                name: "Uttara Kannada",
+                spot: "Gokarna Om Beach & Murudeshwar",
                 region: "Coastal",
                 category: "Beach",
-                tagline: "Coastal Gateway, Cuisine & Temples",
-                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-                overview: "Famous for its pristine coastline, ancient Kadri Manjunatha and Mangaladevi temples, world-renowned seafood, and unique Yakshagana folk dance traditions.",
-                timings: "Panambur Beach open 24 hrs | Temples: 6 AM - 8:30 PM",
-                fee: "Free Beach Entry",
-                duration: "2 Days",
-                airport: "Mangaluru Int'l Airport (IXE - 13 km)",
-                railway: "Mangaluru Central (MAQ) & Mangaluru Jn (MAJN)",
-                bus: "Mangaluru KSRTC Bejai Bus Stand",
-                activities: [
-                    "Watch sunset & ride jet skis at Panambur Beach",
-                    "Visit 10th-century Kadri Manjunatha Temple",
-                    "Taste Ideal Ice Cream's famous 'Gadbad' sundae",
-                    "Watch traditional Yakshagana nocturnal dance show"
-                ],
-                cuisine: "Mangalorean Chicken Ghee Roast, Kori Rotti, Neer Dosa, Anjal (King Fish) Fry, and Gadbad ice cream.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Panambur+Beach+Mangaluru"
+                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
+                shortDesc: "Serene beach town blending spiritual pilgrimage with pristine coastal beach treks and water sports.",
+                overview: "Gokarna is home to the ancient Mahabaleshwar Temple and iconic beaches like Om Beach, Kudle Beach, and Half Moon Beach connected by scenic cliff walking trails.",
+                season: "October to March",
+                timings: "Beaches open 24/7; Temple: 6 AM - 12:30 PM & 5 PM - 8 PM",
+                fee: "Free Entry",
+                attractions: ["Om Beach", "Kudle Beach Trek", "Mahabaleshwar Shiva Temple", "Murudeshwar Shiva Statue"],
+                reach: "Nearest Railway Station: Gokarna Road / Ankola. Nearest Airport: Goa Dabolim (140 km).",
+                food: "Seafood Thali, Prawn Curry, Banana Pancakes",
+                map: "https://maps.google.com/?q=Om+Beach+Gokarna"
             },
             {
-                id: 9,
-                name: "Bagalkot (Badami & Pattadakal)",
-                district: "Bagalkot District",
-                region: "North Interior",
-                category: "Heritage",
-                tagline: "Cradle of Indian Rock-Cut Architecture",
-                image: "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=800&q=80",
-                overview: "The ancient capital of the Chalukya Dynasty, famous for magnificent red sandstone rock-cut cave temples in Badami and UNESCO World Heritage temple complexes in Pattadakal & Aihole.",
-                timings: "Caves open 9:00 AM - 5:30 PM",
-                fee: "₹25 (Badami Caves) | ₹40 (Pattadakal UNESCO site)",
-                duration: "2 Days",
-                airport: "Hubballi Airport (HBX - 105 km)",
-                railway: "Badami Railway Station (BDM - 5 km from caves)",
-                bus: "Badami KSRTC Bus Stand",
-                activities: [
-                    "Climb the 4 rock-cut sandstone cave temples overlooking Agastya Lake",
-                    "Explore 8th-century Chalukyan temple architectures in Pattadakal",
-                    "Visit Durga Temple's unique apsidal structure in Aihole",
-                    "Trek up to Badami North Fort ruins"
-                ],
-                cuisine: "North Karnataka Jolada Rotti meal with Shenga (peanut) Chutney and Ennegai stuffed eggplant.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Badami+Cave+Temples+Karnataka"
+                id: "chikkamagaluru",
+                name: "Chikkamagaluru",
+                spot: "Mullayanagiri & Baba Budangiri",
+                region: "Malnad",
+                category: "Nature",
+                image: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=800&q=80",
+                shortDesc: "The birthplace of coffee in India, offering peak trekking, coffee estate stays, and cool mountain air.",
+                overview: "Chikkamagaluru sits at the foothills of the Mullayanagiri range—the highest peak in Karnataka. Ideal for trekking, coffee lovers, and nature enthusiasts.",
+                season: "September to March",
+                timings: "Open all day (Jeep tours: 6:00 AM - 5:00 PM)",
+                fee: "Free (Jeep ride fees apply for peaks)",
+                attractions: ["Mullayanagiri Peak", "Baba Budangiri", "Hebbe Falls", "Coffee Plantation Tours"],
+                reach: "Nearest Airport: Mangalore (150 km). Well connected by road from Bengaluru (240 km).",
+                food: "Malanadu Meals, Jackfruit Chips, Fresh Filter Coffee",
+                map: "https://maps.google.com/?q=Mullayanagiri+Karnataka"
             },
             {
-                id: 10,
-                name: "Chamarajanagar (Bandipur)",
-                district: "Chamarajanagar District",
+                id: "bandipur",
+                name: "Chamarajanagar",
+                spot: "Bandipur Tiger Reserve",
                 region: "South Interior",
                 category: "Wildlife",
-                tagline: "Nilgiri Biosphere Tiger & Elephant Reserve",
                 image: "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=800&q=80",
-                overview: "Part of the Nilgiri Biosphere Reserve, Bandipur National Park was once a private hunting reserve for the Maharajas of Mysore. Today it is a premier sanctuary for Royal Bengal Tigers, Asian Elephants, and Indian Gaurs.",
-                timings: "Morning Safari: 6:00 AM - 9:00 AM | Evening Safari: 3:30 PM - 6:00 PM",
-                fee: "Safari: Approx. ₹300 - ₹1500 (Depending on bus/jeep option)",
-                duration: "2 Days",
-                airport: "Mysore Airport (MYQ - 70 km) / Bengaluru (220 km)",
-                railway: "Mysuru Junction (75 km)",
-                bus: "Gundlupet / Bandipur Bus Gate",
-                activities: [
-                    "Open Jeep / Bus Wildlife Safari in Project Tiger reserve",
-                    "Spot wild Asian Elephant herds, Leopards, and Chital",
-                    "Birdwatching along the Kabini river ecosystem",
-                    "Visit Himavad Gopalaswamy Betta peak"
-                ],
-                cuisine: "Simple South Indian rice & sambar meals, Ragi Mudde with spicy mutton/chicken curry.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Bandipur+National+Park+Karnataka"
+                shortDesc: "Famous tiger reserve and elephant habitat nestled in the Nilgiri Biosphere Reserve.",
+                overview: "Bandipur National Park is one of India's premier tiger reserves, home to Bengal tigers, Indian elephants, leopards, and gaurs.",
+                season: "October to May",
+                timings: "Safaris: 6:00 AM - 9:00 AM & 3:00 PM - 6:00 PM",
+                fee: "₹350 - ₹1500 (Depending on Bus/Jeep Safari)",
+                attractions: ["Jungle Bus Safari", "Jeep Wildlife Trek", "Gopalaswamy Betta Peak"],
+                reach: "Nearest Airport: Mysore Airport (70 km). Located on Mysuru-Ooty highway.",
+                food: "South Indian meals available at forest lodge restaurants",
+                map: "https://maps.google.com/?q=Bandipur+National+Park"
             }
         ];
 
-        // App State
         let selectedRegion = 'all';
         let selectedCategory = 'all';
-        let searchQuery = '';
-        let savedItems = JSON.parse(localStorage.getItem('ka_saved_spots') || '[]');
 
-        // Initialize Render on Load
-        window.addEventListener('DOMContentLoaded', () => {
-            renderDestinations();
-            updateSavedBadge();
-        });
+        function renderCards() {
+            const grid = document.getElementById('districtGrid');
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
-        function renderDestinations() {
-            const grid = document.getElementById('destinationsGrid');
-            const noResults = document.getElementById('noResultsMsg');
-            
-            const filtered = destinationsData.filter(item => {
+            const filtered = districts.filter(item => {
                 const matchesRegion = selectedRegion === 'all' || item.region === selectedRegion;
                 const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
-                const matchesSearch = searchQuery === '' || 
-                    item.name.toLowerCase().includes(searchQuery) ||
-                    item.district.toLowerCase().includes(searchQuery) ||
-                    item.overview.toLowerCase().includes(searchQuery);
-
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery) || item.spot.toLowerCase().includes(searchQuery);
                 return matchesRegion && matchesCategory && matchesSearch;
             });
 
             if (filtered.length === 0) {
-                grid.innerHTML = '';
-                noResults.classList.remove('hidden');
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--gray); font-size: 1.1rem; padding: 2rem;">No tourist spots found matching your search.</p>`;
                 return;
             }
 
-            noResults.classList.add('hidden');
-            grid.innerHTML = filtered.map(spot => {
-                const isSaved = savedItems.includes(spot.id);
-                return `
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl hover:border-amber-500/50 transition-all duration-300 flex flex-col group">
-                    <div class="relative h-52 overflow-hidden">
-                        <img src="${spot.image}" alt="${spot.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-black/30"></div>
-                        
-                        <button onclick="toggleSave(${spot.id}, event)" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-slate-950/70 border border-slate-700 flex items-center justify-center text-slate-200 hover:text-red-500 transition">
-                            <i class="${isSaved ? 'fa-solid text-red-500' : 'fa-regular'} fa-heart"></i>
-                        </button>
-
-                        <span class="absolute bottom-3 left-3 bg-amber-500/90 text-slate-950 text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider">
-                            ${spot.region}
-                        </span>
-                    </div>
-
-                    <div class="p-5 flex-1 flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start gap-2 mb-1">
-                                <h3 class="font-serif text-xl font-bold text-white group-hover:text-amber-400 transition-colors">${spot.name}</h3>
-                                <span class="text-[11px] text-slate-400 font-medium shrink-0 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">${spot.category}</span>
-                            </div>
-                            <p class="text-xs text-amber-200/80 font-medium mb-3">${spot.tagline}</p>
-                            <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed mb-4">${spot.overview}</p>
-                        </div>
-
-                        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
-                            <span class="text-[11px] text-slate-400"><i class="fa-solid fa-location-dot text-amber-500 me-1"></i> ${spot.district}</span>
-                            <button onclick="openDetail(${spot.id})" class="px-3.5 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-slate-950 border border-amber-500/30 font-semibold text-xs transition">
-                                Explore Details
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                `;
-            }).join('');
-        }
-
-        // Filter Actions
-        function setRegionFilter(region) {
-            selectedRegion = region;
-            document.querySelectorAll('.region-btn').forEach(btn => {
-                if(btn.dataset.region === region) {
-                    btn.className = "region-btn px-4 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition bg-amber-500 text-slate-950";
-                } else {
-                    btn.className = "region-btn px-4 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition bg-slate-800 text-slate-300 hover:bg-slate-700";
-                }
-            });
-            renderDestinations();
-        }
-
-        function setCategoryFilter(cat) {
-            selectedCategory = cat;
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                if(btn.dataset.cat === cat) {
-                    btn.className = "cat-btn px-3 py-1 rounded-full text-xs font-medium border border-amber-500/50 bg-amber-500/10 text-amber-300";
-                } else {
-                    btn.className = "cat-btn px-3 py-1 rounded-full text-xs font-medium border border-slate-700 text-slate-300 hover:border-amber-400";
-                }
-            });
-            renderDestinations();
-        }
-
-        function filterDestinations() {
-            searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
-            renderDestinations();
-        }
-
-        function syncMobileSearch() {
-            searchQuery = document.getElementById('mobileSearchInput').value.toLowerCase().trim();
-            renderDestinations();
-        }
-
-        function resetFilters() {
-            selectedRegion = 'all';
-            selectedCategory = 'all';
-            searchQuery = '';
-            document.getElementById('searchInput').value = '';
-            document.getElementById('mobileSearchInput').value = '';
-            setRegionFilter('all');
-            setCategoryFilter('all');
-        }
-
-        function openDetail(id) {
-            const spot = destinationsData.find(item => item.id === id);
-            if (!spot) return;
-
-            document.getElementById('modalImg').src = spot.image;
-            document.getElementById('modalTitle').textContent = spot.name;
-            document.getElementById('modalRegionBadge').textContent = spot.region;
-            document.getElementById('modalDistrictBadge').textContent = spot.district;
-            document.getElementById('modalDesc').textContent = spot.overview;
-            
-            document.getElementById('modalTimings').textContent = spot.timings;
-            document.getElementById('modalFee').textContent = spot.fee;
-            document.getElementById('modalDuration').textContent = spot.duration;
-
-            document.getElementById('modalAirport').textContent = spot.airport;
-            document.getElementById('modalRailway').textContent = spot.railway;
-            document.getElementById('modalBus').textContent = spot.bus;
-
-            document.getElementById('modalCuisine').textContent = spot.cuisine;
-            document.getElementById('modalMapBtn').href = spot.mapsUrl;
-
-            const activitiesList = document.getElementById('modalActivities');
-            activitiesList.innerHTML = spot.activities.map(act => `<li>${act}</li>`).join('');
-
-            // Wishlist button state inside modal
-            const isSaved = savedItems.includes(spot.id);
-            const modalSaveBtn = document.getElementById('modalSaveBtn');
-            modalSaveBtn.onclick = (e) => toggleSave(spot.id, e);
-            modalSaveBtn.innerHTML = isSaved ? 
-                `<i class="fa-solid fa-heart text-red-500"></i> Remove from Wishlist` : 
-                `<i class="fa-regular fa-heart text-red-500"></i> Save to Wishlist`;
-
-            const modal = document.getElementById('detailModal');
-            const container = document.getElementById('modalContainer');
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            container.classList.remove('scale-95');
-            container.classList.add('scale-100');
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('detailModal');
-            const container = document.getElementById('modalContainer');
-            modal.classList.add('opacity-0', 'pointer-events-none');
-            container.classList.remove('scale-100');
-            container.classList.add('scale-95');
-        }
-
-        function toggleSave(id, event) {
-            if(event) event.stopPropagation();
-            
-            if (savedItems.includes(id)) {
-                savedItems = savedItems.filter(item => item !== id);
-            } else {
-                savedItems.push(id);
-            }
-            localStorage.setItem('ka_saved_spots', JSON.stringify(savedItems));
-            updateSavedBadge();
-            renderDestinations();
-
-            // Refresh modal state if open
-            const modalSaveBtn = document.getElementById('modalSaveBtn');
-            const isSaved = savedItems.includes(id);
-            if (modalSaveBtn) {
-                modalSaveBtn.innerHTML = isSaved ? 
-                    `<i class="fa-solid fa-heart text-red-500"></i> Remove from Wishlist` : 
-                    `<i class="fa-regular fa-heart text-red-500"></i> Save to Wishlist`;
-            }
-        }
-
-        function updateSavedBadge() {
-            document.getElementById('savedCountBadge').textContent = savedItems.length;
-        }
-
-        function toggleSavedModal() {
-            const modal = document.getElementById('savedModal');
-            const isHidden = modal.classList.contains('pointer-events-none');
-
-            if (isHidden) {
-                renderSavedList();
-                modal.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                modal.classList.add('opacity-0', 'pointer-events-none');
-            }
-        }
-
-        function renderSavedList() {
-            const list = document.getElementById('savedList');
-            if (savedItems.length === 0) {
-                list.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">No saved destinations yet. Click the heart icon on any card to save it here!</div>`;
-                return;
-            }
-
-            const items = destinationsData.filter(d => savedItems.includes(d.id));
-            list.innerHTML = items.map(spot => `
-                <div class="flex items-center justify-between p-3 bg-slate-950 rounded-xl border border-slate-800 gap-3">
-                    <img src="${spot.image}" class="w-14 h-14 rounded-lg object-cover">
-                    <div class="flex-1">
-                        <h4 class="font-bold text-sm text-slate-200">${spot.name}</h4>
-                        <span class="text-[10px] text-amber-400">${spot.district} &bull; ${spot.region}</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="openDetail(${spot.id}); toggleSavedModal();" class="px-3 py-1 bg-amber-500 text-slate-950 font-bold rounded-lg text-xs">View</button>
-                        <button onclick="toggleSave(${spot.id}); renderSavedList();" class="text-slate-400 hover:text-red-500 p-2"><i class="fa-solid fa-trash"></i></button>
+            grid.innerHTML = filtered.map(item => `
+                <div class="card">
+                    <img src="${item.image}" alt="${item.spot}" class="card-img">
+                    <div class="card-body">
+                        <span class="card-tag">${item.category} • ${item.region}</span>
+                        <div class="card-title">${item.spot}</div>
+                        <div class="card-subtitle">📍 ${item.name} District</div>
+                        <p class="card-desc">${item.shortDesc}</p>
+                        <button class="card-btn" onclick="openModal('${item.id}')">Explore Details</button>
                     </div>
                 </div>
             `).join('');
         }
+
+        function setRegion(region, btn) {
+            selectedRegion = region;
+            btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCards();
+        }
+
+        function setCategory(category, btn) {
+            selectedCategory = category;
+            btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCards();
+        }
+
+        function filterDestinations() {
+            renderCards();
+        }
+
+        function openModal(id) {
+            const item = districts.find(d => d.id === id);
+            if (!item) return;
+
+            document.getElementById('modalImg').src = item.image;
+            document.getElementById('modalCategory').textContent = `${item.category} • ${item.region} Region`;
+            document.getElementById('modalTitle').textContent = item.spot;
+            document.getElementById('modalSubtitle').textContent = `District: ${item.name}`;
+            document.getElementById('modalSeason').textContent = item.season;
+            document.getElementById('modalTimings').textContent = item.timings;
+            document.getElementById('modalFee').textContent = item.fee;
+            document.getElementById('modalDesc').textContent = item.overview;
+            document.getElementById('modalReach').textContent = item.reach;
+            document.getElementById('modalFood').textContent = item.food;
+            document.getElementById('modalMapLink').href = item.map;
+
+            const attractionsList = document.getElementById('modalAttractions');
+            attractionsList.innerHTML = item.attractions.map(attr => `<li>${attr}</li>`).join('');
+
+            document.getElementById('detailsModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+        }
+
+        // Close modal on background click
+        window.onclick = function(event) {
+            const modal = document.getElementById('detailsModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // Initial render
+        renderCards();
     </script>
 </body>
 </html>
